@@ -119,6 +119,19 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+
+
+if (path === "/version") {
+      writeJson(res, 200, {
+        version: "1.0.0",
+        node: process.version
+      });
+      return;
+    }
+
+
+
+
     statusCode = 404;
     writeJson(res, statusCode, { error: "Not found" });
   } catch (error) {
@@ -127,6 +140,9 @@ const server = http.createServer((req, res) => {
       error: "Internal server error",
       message: error instanceof Error ? error.message : "Unknown error"
     });
+
+
+
   } finally {
     const durationSeconds = Number(process.hrtime.bigint() - startedAt) / 1_000_000_000;
     observeRequest(
